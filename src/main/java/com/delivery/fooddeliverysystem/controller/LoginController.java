@@ -60,7 +60,9 @@ public class LoginController implements Initializable {
                 case DRIVER   -> "driver_dashboard.fxml";
                 default       -> "dashboard.fxml";
             };
-            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml(fxmlFile));
+            URL url = ViewLoader.fxml(fxmlFile);
+            FXMLLoader loader = new FXMLLoader(url);
+            loader.setLocation(url);
             Stage stage = (Stage) fieldUsername.getScene().getWindow();
             Scene scene = new Scene(loader.load(), 1050, 680);
             stage.setScene(scene);

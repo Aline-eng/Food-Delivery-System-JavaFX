@@ -101,7 +101,9 @@ public class DashboardController implements Initializable {
 
     private Node loadView(String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml(fxmlFile));
+            URL url = ViewLoader.fxml(fxmlFile);
+            FXMLLoader loader = new FXMLLoader(url);
+            loader.setLocation(url); // required so @../css/style.css resolves correctly
             return loader.load();
         } catch (Exception e) {
             Throwable cause = e.getCause() != null ? e.getCause() : e;
