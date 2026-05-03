@@ -12,10 +12,14 @@ import java.util.ResourceBundle;
 
 public class DriverController implements Initializable {
 
-    @FXML private TextField fieldId, fieldName, fieldPhone, fieldVehicle, searchField;
+    @FXML private TextField fieldId, fieldName, fieldPhone, searchField;
+    @FXML private ComboBox<String> vehicleCombo;
     @FXML private Label driverMsg;
     @FXML private TableView<DeliveryDriver> driversTable;
     @FXML private TableColumn<DeliveryDriver, String> colId, colName, colPhone, colVehicle, colAvailable;
+
+    private static final java.util.List<String> VEHICLES =
+            java.util.List.of("Motorcycle", "Car", "Bicycle", "Scooter", "Van", "Truck");
 
     private final AppContext ctx = AppContext.get();
 
@@ -26,16 +30,21 @@ public class DriverController implements Initializable {
         colPhone.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getPhone()));
         colVehicle.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getVehicleType()));
         colAvailable.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().isAvailable() ? "✅ Yes" : "❌ No"));
+        vehicleCombo.setItems(javafx.collections.FXCollections.observableArrayList(VEHICLES));
         refreshDrivers();
     }
 
     @FXML
     private void addDriver() {
         clearMsg();
+        if (fieldId.getText().isBlank())    { showError("Driver ID is required.");    return; }
+        if (fieldName.getText().isBlank())  { showError("Driver name is required.");  return; }
+        if (fieldPhone.getText().isBlank()) { showError("Phone number is required."); return; }
+        if (vehicleCombo.getValue() == null){ showError("Select a vehicle type.");    return; }
         try {
             ctx.driverManager.add(new DeliveryDriver(
                     fieldId.getText().trim(), fieldName.getText().trim(),
-                    fieldPhone.getText().trim(), fieldVehicle.getText().trim()));
+                    fieldPhone.getText().trim(), vehicleCombo.getValue()));
             showSuccess("Driver added!");
             clearForm();
             refreshDrivers();
@@ -70,7 +79,7 @@ public class DriverController implements Initializable {
         driversTable.getItems().setAll(ctx.driverManager.getAll());
     }
 
-    private void clearForm() { fieldId.clear(); fieldName.clear(); fieldPhone.clear(); fieldVehicle.clear(); }
+    private void clearForm() { fieldId.clear(); fieldName.clear(); fieldPhone.clear(); vehicleCombo.setValue(null); }
     private void showSuccess(String msg) { driverMsg.setText(msg); driverMsg.getStyleClass().setAll("msg-success"); }
     private void showError(String msg)   { driverMsg.setText(msg); driverMsg.getStyleClass().setAll("msg-error"); }
     private void clearMsg()              { driverMsg.setText(""); }
