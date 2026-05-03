@@ -26,7 +26,7 @@
             </VBox>
             <VBox spacing="8" alignment="TOP_RIGHT" minWidth="150">
                 <Label text="Order Total" styleClass="form-label"/>
-                <Label fx:id="lblOrderTotal" text="$0.00"
+                <Label fx:id="lblOrderTotal" text="0.00"
                        style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e65c00;"/>
                 <Button text="Place Order" styleClass="btn-primary" maxWidth="Infinity"
                         onAction="#placeOrder" style="-fx-padding: 10 0;"/>

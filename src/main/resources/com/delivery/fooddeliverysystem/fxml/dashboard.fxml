@@ -62,7 +62,7 @@
                                 <TableColumn fx:id="colROCustomer"   text="Customer"   prefWidth="140"/>
                                 <TableColumn fx:id="colRORestaurant" text="Restaurant" prefWidth="140"/>
                                 <TableColumn fx:id="colROStatus"     text="Status"     prefWidth="120"/>
-                                <TableColumn fx:id="colROTotal"      text="Total ($)"  prefWidth="90"/>
+                                <TableColumn fx:id="colROTotal"      text="Total"  prefWidth="90"/>
                                 <TableColumn fx:id="colROTime"       text="Time"       prefWidth="130"/>
                             </columns>
                         </TableView>

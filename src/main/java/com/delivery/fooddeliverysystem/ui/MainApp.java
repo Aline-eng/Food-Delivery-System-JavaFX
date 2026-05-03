@@ -14,7 +14,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(ViewLoader.fxml("login.fxml"));
         Scene scene = new Scene(loader.load(), 420, 460);
-        stage.setTitle("🍔 FoodDash — Login");
+        stage.setTitle("FoodDash — Login");
         stage.setScene(scene);
         stage.setMinWidth(400);
         stage.setMinHeight(400);

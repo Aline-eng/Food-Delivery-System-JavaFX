@@ -46,7 +46,7 @@
                 <TextField fx:id="fieldItemName" promptText="e.g. Margherita Pizza"/>
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Price ($)" styleClass="form-label"/>
+                <Label text="Price" styleClass="form-label"/>
                 <TextField fx:id="fieldItemPrice" promptText="e.g. 12.99"/>
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
