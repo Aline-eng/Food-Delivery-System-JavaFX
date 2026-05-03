@@ -97,7 +97,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.delivery.fooddeliverysystem/com.delivery.fooddeliverysystem.HelloApplication
+                                com.delivery.fooddeliverysystem/com.delivery.fooddeliverysystem.Launcher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
