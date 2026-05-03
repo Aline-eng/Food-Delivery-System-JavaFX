@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.delivery.fooddeliverysystem.controller.SignupController"
+      alignment="CENTER" spacing="0"
+      stylesheets="@../css/style.css"
+      style="-fx-background-color: #f5f5f5;">
+
+    <StackPane VBox.vgrow="ALWAYS" alignment="CENTER">
+        <VBox alignment="TOP_CENTER" spacing="0"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0, 0, 4);"
+              maxWidth="440">
+            <padding><Insets top="36" right="40" bottom="36" left="40"/></padding>
+
+            <Label text="🍔 FoodDash" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e65c00;"/>
+            <Label text="Create your account" style="-fx-font-size: 13px; -fx-text-fill: #888888; -fx-padding: 4 0 20 0;"/>
+
+            <!-- Role -->
+            <Label text="I am a" styleClass="form-label" style="-fx-padding: 0 0 4 0;"/>
+            <ComboBox fx:id="roleCombo" maxWidth="Infinity"/>
+
+            <!-- Common fields -->
+            <Label text="Full Name" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+            <TextField fx:id="fieldName" promptText="Your full name" maxWidth="Infinity"/>
+
+            <Label text="Phone Number" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+            <TextField fx:id="fieldPhone" promptText="e.g. 0700000000" maxWidth="Infinity"/>
+
+            <!-- Customer-only fields -->
+            <VBox fx:id="customerFields" spacing="0">
+                <Label text="Delivery Address" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+                <TextField fx:id="fieldAddress" promptText="Your delivery address" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Driver-only fields -->
+            <VBox fx:id="driverFields" spacing="0" visible="false" managed="false">
+                <Label text="Vehicle Type" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+                <TextField fx:id="fieldVehicle" promptText="e.g. Motorcycle, Car, Bicycle" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Credentials -->
+            <Label text="Username" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+            <TextField fx:id="fieldUsername" promptText="Choose a username" maxWidth="Infinity"/>
+
+            <Label text="Password" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+            <PasswordField fx:id="fieldPassword" promptText="At least 6 characters" maxWidth="Infinity"/>
+
+            <Label text="Confirm Password" styleClass="form-label" style="-fx-padding: 12 0 4 0;"/>
+            <PasswordField fx:id="fieldConfirm" promptText="Repeat your password" maxWidth="Infinity"/>
+
+            <Label fx:id="signupMsg" text="" wrapText="true" maxWidth="360"
+                   style="-fx-padding: 8 0 0 0;"/>
+
+            <Button text="Create Account" styleClass="btn-primary" maxWidth="Infinity"
+                    style="-fx-padding: 12 0; -fx-font-size: 14px;"
+                    onAction="#handleSignup">
+                <VBox.margin><Insets top="16"/></VBox.margin>
+            </Button>
+
+            <HBox alignment="CENTER" spacing="4" style="-fx-padding: 12 0 0 0;">
+                <Label text="Already have an account?" style="-fx-text-fill: #888888;"/>
+                <Button text="Sign In" onAction="#goToLogin"
+                        style="-fx-background-color: transparent; -fx-text-fill: #e65c00; -fx-font-weight: bold; -fx-cursor: hand; -fx-border-color: transparent; -fx-padding: 0;"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</VBox>
