@@ -3,17 +3,21 @@ package com.delivery.fooddeliverysystem.controller;
 import com.delivery.fooddeliverysystem.model.Order;
 import com.delivery.fooddeliverysystem.model.OrderStatus;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
-    @FXML private Label headerTitle;
+    @FXML private Label headerTitle, lblAdminUser;
     @FXML private Label statOrders, statRestaurants, statCustomers, statDrivers;
     @FXML private VBox dashboardPane, ordersPane, restaurantsPane, customersPane, driversPane;
     @FXML private Button btnNavDashboard, btnNavOrders, btnNavRestaurants, btnNavCustomers, btnNavDrivers;
@@ -27,6 +31,8 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupRecentOrdersTable();
         refreshStats();
+        if (lblAdminUser != null)
+            lblAdminUser.setText("Admin: " + SessionManager.get().getCurrentUser().getUsername());
     }
 
     private void setupRecentOrdersTable() {
@@ -72,4 +78,20 @@ public class DashboardController implements Initializable {
     @FXML private void showRestaurants() { showPane(restaurantsPane, "Restaurants", btnNavRestaurants); }
     @FXML private void showCustomers()   { showPane(customersPane,   "Customers",   btnNavCustomers); }
     @FXML private void showDrivers()     { showPane(driversPane,     "Drivers",     btnNavDrivers); }
+
+    @FXML
+    private void handleLogout() {
+        SessionManager.get().logout();
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/delivery/fooddeliverysystem/fxml/login.fxml"));
+            Stage stage = (Stage) headerTitle.getScene().getWindow();
+            stage.setScene(new Scene(loader.load(), 420, 460));
+            stage.setTitle("🍔 FoodDash — Login");
+            stage.setMinWidth(400);
+            stage.setMinHeight(400);
+        } catch (IOException e) {
+            System.err.println("Logout failed: " + e.getMessage());
+        }
+    }
 }

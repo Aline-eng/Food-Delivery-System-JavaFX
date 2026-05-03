@@ -19,6 +19,10 @@
             <Button fx:id="btnNavRestaurants" text="🍽  Restaurants" styleClass="nav-button" onAction="#showRestaurants"/>
             <Button fx:id="btnNavCustomers" text="👤  Customers"  styleClass="nav-button" onAction="#showCustomers"/>
             <Button fx:id="btnNavDrivers"   text="🚗  Drivers"    styleClass="nav-button" onAction="#showDrivers"/>
+            <VBox VBox.vgrow="ALWAYS"/>
+            <Separator/>
+            <Button text="🚪  Logout" styleClass="nav-button" onAction="#handleLogout"
+                    style="-fx-text-fill: #ff6b6b;"/>
         </VBox>
     </left>
 
@@ -26,8 +30,9 @@
     <center>
         <VBox spacing="0">
             <!-- Header -->
-            <HBox styleClass="header-bar" alignment="CENTER_LEFT">
-                <Label fx:id="headerTitle" text="Dashboard" styleClass="header-title"/>
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="headerTitle" text="Dashboard" styleClass="header-title" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblAdminUser" text="" style="-fx-text-fill: #888888; -fx-font-size: 12px;"/>
             </HBox>
 
             <!-- Dynamic content area -->

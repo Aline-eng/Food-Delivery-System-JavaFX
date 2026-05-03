@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.delivery.fooddeliverysystem.controller.DriverDashboardController"
+            prefWidth="1000" prefHeight="660"
+            stylesheets="@../css/style.css">
+
+    <left>
+        <VBox styleClass="sidebar" spacing="2">
+            <Label text="🍔 FoodDash" styleClass="sidebar-title"/>
+            <Label text="Driver Portal" styleClass="sidebar-subtitle"/>
+            <Separator/>
+            <VBox VBox.vgrow="ALWAYS"/>
+            <Button text="🚪  Logout" styleClass="nav-button" onAction="#handleLogout"
+                    style="-fx-text-fill: #ff6b6b;"/>
+            <padding><Insets bottom="10"/></padding>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="0">
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="lblWelcome" text="Welcome!" styleClass="header-title" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblAvailability" text="" styleClass="msg-success"/>
+            </HBox>
+
+            <VBox spacing="20">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                <!-- Status update panel -->
+                <VBox styleClass="content-panel" spacing="12">
+                    <Label text="Update Delivery Status" styleClass="section-title"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="New Status" styleClass="form-label"/>
+                            <ComboBox fx:id="statusCombo" maxWidth="Infinity" promptText="Select status..."/>
+                        </VBox>
+                        <VBox alignment="BOTTOM_LEFT">
+                            <Button text="Update Status" styleClass="btn-primary" onAction="#updateOrderStatus"
+                                    style="-fx-padding: 9 20;"/>
+                        </VBox>
+                        <VBox alignment="BOTTOM_LEFT">
+                            <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshMyDeliveries"
+                                    style="-fx-padding: 9 20;"/>
+                        </VBox>
+                    </HBox>
+                    <Label fx:id="driverMsg" text="" wrapText="true"/>
+                </VBox>
+
+                <!-- Assigned orders table -->
+                <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
+                    <Label text="🚗 My Assigned Deliveries" styleClass="section-title"/>
+                    <TableView fx:id="assignedOrdersTable" VBox.vgrow="ALWAYS" prefHeight="380">
+                        <columns>
+                            <TableColumn fx:id="colId"         text="Order ID"   prefWidth="130"/>
+                            <TableColumn fx:id="colCustomer"   text="Customer"   prefWidth="140"/>
+                            <TableColumn fx:id="colRestaurant" text="Restaurant" prefWidth="140"/>
+                            <TableColumn fx:id="colItems"      text="Items"      prefWidth="200"/>
+                            <TableColumn fx:id="colTotal"      text="Total"      prefWidth="80"/>
+                            <TableColumn fx:id="colStatus"     text="Status"     prefWidth="120"/>
+                            <TableColumn fx:id="colTime"       text="Time"       prefWidth="130"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

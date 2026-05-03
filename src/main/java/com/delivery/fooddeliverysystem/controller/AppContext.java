@@ -9,12 +9,14 @@ public class AppContext {
     public final RestaurantManager restaurantManager;
     public final DriverManager driverManager;
     public final OrderManager orderManager;
+    public final AuthManager authManager;
 
     private AppContext() {
         customerManager = new CustomerManager();
         restaurantManager = new RestaurantManager();
         driverManager = new DriverManager();
         orderManager = new OrderManager(customerManager, restaurantManager, driverManager);
+        authManager = new AuthManager();
     }
 
     public static AppContext get() {

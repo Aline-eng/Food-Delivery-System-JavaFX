@@ -12,12 +12,12 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/delivery/fooddeliverysystem/fxml/dashboard.fxml"));
-        Scene scene = new Scene(loader.load(), 1050, 680);
-        stage.setTitle("🍔 FoodDash — Delivery System");
+                getClass().getResource("/com/delivery/fooddeliverysystem/fxml/login.fxml"));
+        Scene scene = new Scene(loader.load(), 420, 460);
+        stage.setTitle("🍔 FoodDash — Login");
         stage.setScene(scene);
-        stage.setMinWidth(900);
-        stage.setMinHeight(600);
+        stage.setMinWidth(400);
+        stage.setMinHeight(400);
         stage.show();
     }
 }
