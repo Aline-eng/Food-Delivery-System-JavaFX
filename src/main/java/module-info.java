@@ -4,6 +4,7 @@ module com.delivery.fooddeliverysystem {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires jbcrypt;
 
     opens com.delivery.fooddeliverysystem to javafx.fxml;
     opens com.delivery.fooddeliverysystem.ui to javafx.fxml;
