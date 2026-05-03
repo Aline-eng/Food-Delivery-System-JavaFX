@@ -7,11 +7,8 @@ import com.delivery.fooddeliverysystem.model.UserAccount;
 import com.delivery.fooddeliverysystem.model.UserRole;
 import com.delivery.fooddeliverysystem.util.AppLogger;
 import com.delivery.fooddeliverysystem.util.FileHandler;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,38 +17,54 @@ public class AuthManager {
     private final LinkedList<UserAccount> accounts = new LinkedList<>();
     private static final String FILE = "accounts.csv";
 
+    // BCrypt work factor — 12 is a good balance of security vs. speed
+    private static final int BCRYPT_ROUNDS = 12;
+
     public AuthManager() {
         List<String[]> rows = FileHandler.readCSV(FILE);
         for (String[] r : rows) {
             if (r.length >= 4)
                 accounts.add(new UserAccount(r[0], r[1], UserRole.valueOf(r[2]), r[3]));
         }
-        // Seed a default admin if no accounts exist
         if (accounts.isEmpty()) {
-            accounts.add(new UserAccount("admin", hash("admin123"), UserRole.ADMIN, ""));
+            // Seed default admin — password is hashed immediately, never logged in plaintext
+            String hashed = BCrypt.hashpw("admin123", BCrypt.gensalt(BCRYPT_ROUNDS));
+            accounts.add(new UserAccount("admin", hashed, UserRole.ADMIN, ""));
             persist();
-            AppLogger.info("Default admin account created (username: admin, password: admin123)");
+            AppLogger.info("Default admin account seeded. Change the password after first login.");
         }
     }
 
     public UserAccount login(String username, String password) throws DeliverySystemException {
         if (username == null || username.isBlank()) throw new InvalidInputException("Username is required.");
         if (password == null || password.isBlank()) throw new InvalidInputException("Password is required.");
-        String hashed = hash(password);
-        return accounts.stream()
-                .filter(a -> a.getUsername().equalsIgnoreCase(username) && a.getPasswordHash().equals(hashed))
+
+        UserAccount account = accounts.stream()
+                .filter(a -> a.getUsername().equalsIgnoreCase(username))
                 .findFirst()
                 .orElseThrow(() -> new DeliverySystemException("Invalid username or password."));
+
+        // BCrypt.checkpw handles the salt extraction internally
+        if (!BCrypt.checkpw(password, account.getPasswordHash()))
+            throw new DeliverySystemException("Invalid username or password.");
+
+        AppLogger.info("User logged in: " + username + " [" + account.getRole() + "]");
+        return account;
     }
 
     public void register(String username, String password, UserRole role, String linkedId)
             throws DeliverySystemException {
-        if (username == null || username.isBlank()) throw new InvalidInputException("Username is required.");
-        if (password == null || password.length() < 6)  throw new InvalidInputException("Password must be at least 6 characters.");
+        if (username == null || username.isBlank())
+            throw new InvalidInputException("Username is required.");
+        if (password == null || password.length() < 6)
+            throw new InvalidInputException("Password must be at least 6 characters.");
         if (accounts.stream().anyMatch(a -> a.getUsername().equalsIgnoreCase(username)))
             throw new DuplicateEntryException(username);
-        accounts.add(new UserAccount(username, hash(password), role, linkedId));
+
+        String hashed = BCrypt.hashpw(password, BCrypt.gensalt(BCRYPT_ROUNDS));
+        accounts.add(new UserAccount(username, hashed, role, linkedId));
         persist();
+        // Log only username and role — never the password
         AppLogger.info("New account registered: " + username + " [" + role + "]");
     }
 
@@ -61,15 +74,5 @@ public class AuthManager {
 
     private void persist() {
         FileHandler.writeCSV(FILE, accounts.stream().map(UserAccount::toString).collect(Collectors.toList()));
-    }
-
-    public static String hash(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] bytes = md.digest(input.getBytes(StandardCharsets.UTF_8));
-            return HexFormat.of().formatHex(bytes);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 not available", e);
-        }
     }
 }
