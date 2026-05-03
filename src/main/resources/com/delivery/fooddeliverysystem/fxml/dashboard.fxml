@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.delivery.fooddeliverysystem.controller.DashboardController"
+            prefWidth="1000" prefHeight="650"
+            stylesheets="@../css/style.css">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="2">
+            <Label text="🍔 FoodDash" styleClass="sidebar-title"/>
+            <Label text="Delivery System" styleClass="sidebar-subtitle"/>
+            <Separator/>
+            <Button fx:id="btnNavDashboard" text="📊  Dashboard"  styleClass="nav-button,nav-button-active" onAction="#showDashboard"/>
+            <Button fx:id="btnNavOrders"    text="📦  Orders"     styleClass="nav-button" onAction="#showOrders"/>
+            <Button fx:id="btnNavRestaurants" text="🍽  Restaurants" styleClass="nav-button" onAction="#showRestaurants"/>
+            <Button fx:id="btnNavCustomers" text="👤  Customers"  styleClass="nav-button" onAction="#showCustomers"/>
+            <Button fx:id="btnNavDrivers"   text="🚗  Drivers"    styleClass="nav-button" onAction="#showDrivers"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="0">
+            <!-- Header -->
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT">
+                <Label fx:id="headerTitle" text="Dashboard" styleClass="header-title"/>
+            </HBox>
+
+            <!-- Dynamic content area -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                <!-- Dashboard pane -->
+                <VBox fx:id="dashboardPane" spacing="20">
+                    <HBox spacing="15">
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                            <Label fx:id="statOrders" text="0" styleClass="stat-number"/>
+                            <Label text="Total Orders" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                            <Label fx:id="statRestaurants" text="0" styleClass="stat-number"/>
+                            <Label text="Restaurants" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                            <Label fx:id="statCustomers" text="0" styleClass="stat-number"/>
+                            <Label text="Customers" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                            <Label fx:id="statDrivers" text="0" styleClass="stat-number"/>
+                            <Label text="Available Drivers" styleClass="stat-label"/>
+                        </VBox>
+                    </HBox>
+                    <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
+                        <Label text="Recent Orders" styleClass="section-title"/>
+                        <TableView fx:id="recentOrdersTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colROId"         text="Order ID"   prefWidth="120"/>
+                                <TableColumn fx:id="colROCustomer"   text="Customer"   prefWidth="140"/>
+                                <TableColumn fx:id="colRORestaurant" text="Restaurant" prefWidth="140"/>
+                                <TableColumn fx:id="colROStatus"     text="Status"     prefWidth="120"/>
+                                <TableColumn fx:id="colROTotal"      text="Total ($)"  prefWidth="90"/>
+                                <TableColumn fx:id="colROTime"       text="Time"       prefWidth="130"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </VBox>
+
+                <!-- Orders pane -->
+                <VBox fx:id="ordersPane" spacing="15" visible="false" managed="false">
+                    <fx:include fx:id="ordersInclude" source="orders.fxml"/>
+                </VBox>
+
+                <!-- Restaurants pane -->
+                <VBox fx:id="restaurantsPane" spacing="15" visible="false" managed="false">
+                    <fx:include fx:id="restaurantsInclude" source="restaurants.fxml"/>
+                </VBox>
+
+                <!-- Customers pane -->
+                <VBox fx:id="customersPane" spacing="15" visible="false" managed="false">
+                    <fx:include fx:id="customersInclude" source="customers.fxml"/>
+                </VBox>
+
+                <!-- Drivers pane -->
+                <VBox fx:id="driversPane" spacing="15" visible="false" managed="false">
+                    <fx:include fx:id="driversInclude" source="drivers.fxml"/>
+                </VBox>
+
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>

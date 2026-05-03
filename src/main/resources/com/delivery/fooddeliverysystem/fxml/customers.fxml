@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.delivery.fooddeliverysystem.controller.CustomerController"
+      spacing="15" stylesheets="@../css/style.css">
+
+    <!-- Form -->
+    <VBox styleClass="content-panel" spacing="12">
+        <Label text="Manage Customers" styleClass="section-title"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Customer ID" styleClass="form-label"/>
+                <TextField fx:id="fieldId" promptText="e.g. C-001"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Name" styleClass="form-label"/>
+                <TextField fx:id="fieldName" promptText="Full name"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Phone" styleClass="form-label"/>
+                <TextField fx:id="fieldPhone" promptText="e.g. 0700000000"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Address" styleClass="form-label"/>
+                <TextField fx:id="fieldAddress" promptText="Delivery address"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="Add Customer" styleClass="btn-primary" onAction="#addCustomer"/>
+            <Button text="Remove Selected" styleClass="btn-danger" onAction="#removeCustomer"/>
+            <Label fx:id="customerMsg" styleClass="msg-success"/>
+        </HBox>
+    </VBox>
+
+    <!-- Table -->
+    <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Customers" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="searchField" promptText="Search..." prefWidth="200"/>
+            <Button text="Search" styleClass="btn-secondary" onAction="#searchCustomers"/>
+            <Button text="Sort A-Z" styleClass="btn-secondary" onAction="#sortCustomers"/>
+            <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshCustomers"/>
+        </HBox>
+        <TableView fx:id="customersTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId"      text="ID"      prefWidth="100"/>
+                <TableColumn fx:id="colName"    text="Name"    prefWidth="160"/>
+                <TableColumn fx:id="colPhone"   text="Phone"   prefWidth="130"/>
+                <TableColumn fx:id="colAddress" text="Address" prefWidth="250"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

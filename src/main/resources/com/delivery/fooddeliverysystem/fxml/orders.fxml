@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.delivery.fooddeliverysystem.controller.OrderController"
+      spacing="15" stylesheets="@../css/style.css">
+
+    <!-- Form Panel -->
+    <VBox styleClass="content-panel" spacing="12">
+        <Label text="Place New Order" styleClass="section-title"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Order ID" styleClass="form-label"/>
+                <TextField fx:id="fieldOrderId" promptText="e.g. ORD-001"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Customer ID" styleClass="form-label"/>
+                <TextField fx:id="fieldCustomerId" promptText="e.g. C-001"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Restaurant ID" styleClass="form-label"/>
+                <TextField fx:id="fieldRestaurantId" promptText="e.g. R-001"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Menu Item IDs (comma-separated)" styleClass="form-label"/>
+                <TextField fx:id="fieldItemIds" promptText="e.g. M1,M2"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="Place Order" styleClass="btn-primary" onAction="#placeOrder"/>
+            <Button text="Assign Driver" styleClass="btn-success" onAction="#assignDriver"/>
+            <Button text="Cancel Order" styleClass="btn-danger" onAction="#cancelOrder"/>
+            <ComboBox fx:id="statusCombo" promptText="Update Status"/>
+            <Button text="Update Status" styleClass="btn-secondary" onAction="#updateStatus"/>
+            <Label fx:id="orderMsg" styleClass="msg-success"/>
+        </HBox>
+    </VBox>
+
+    <!-- Search + Table -->
+    <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Orders" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="searchField" promptText="Search orders..." prefWidth="200"/>
+            <Button text="Search" styleClass="btn-secondary" onAction="#searchOrders"/>
+            <Button text="Sort by Time" styleClass="btn-secondary" onAction="#sortOrders"/>
+            <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshOrders"/>
+        </HBox>
+        <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId"         text="Order ID"   prefWidth="110"/>
+                <TableColumn fx:id="colCustomer"   text="Customer"   prefWidth="130"/>
+                <TableColumn fx:id="colRestaurant" text="Restaurant" prefWidth="130"/>
+                <TableColumn fx:id="colItems"      text="Items"      prefWidth="160"/>
+                <TableColumn fx:id="colTotal"      text="Total ($)"  prefWidth="80"/>
+                <TableColumn fx:id="colDriver"     text="Driver"     prefWidth="110"/>
+                <TableColumn fx:id="colStatus"     text="Status"     prefWidth="120"/>
+                <TableColumn fx:id="colTime"       text="Time"       prefWidth="130"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

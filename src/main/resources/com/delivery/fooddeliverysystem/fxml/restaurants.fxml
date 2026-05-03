@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.delivery.fooddeliverysystem.controller.RestaurantController"
+      spacing="15" stylesheets="@../css/style.css">
+
+    <!-- Restaurant Form -->
+    <VBox styleClass="content-panel" spacing="12">
+        <Label text="Manage Restaurants" styleClass="section-title"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Restaurant ID" styleClass="form-label"/>
+                <TextField fx:id="fieldRestId" promptText="e.g. R-001"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Name" styleClass="form-label"/>
+                <TextField fx:id="fieldRestName" promptText="Restaurant name"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Cuisine" styleClass="form-label"/>
+                <TextField fx:id="fieldCuisine" promptText="e.g. Italian"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="Add Restaurant" styleClass="btn-primary" onAction="#addRestaurant"/>
+            <Button text="Remove Selected" styleClass="btn-danger" onAction="#removeRestaurant"/>
+            <Label fx:id="restMsg" styleClass="msg-success"/>
+        </HBox>
+    </VBox>
+
+    <!-- Menu Item Form -->
+    <VBox styleClass="content-panel" spacing="12">
+        <Label text="Manage Menu Items" styleClass="section-title"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Restaurant ID" styleClass="form-label"/>
+                <TextField fx:id="fieldMenuRestId" promptText="Restaurant ID"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Item ID" styleClass="form-label"/>
+                <TextField fx:id="fieldItemId" promptText="e.g. M-001"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Item Name" styleClass="form-label"/>
+                <TextField fx:id="fieldItemName" promptText="e.g. Margherita Pizza"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Price ($)" styleClass="form-label"/>
+                <TextField fx:id="fieldItemPrice" promptText="e.g. 12.99"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Category" styleClass="form-label"/>
+                <TextField fx:id="fieldItemCategory" promptText="e.g. Main"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="Add Menu Item" styleClass="btn-primary" onAction="#addMenuItem"/>
+            <Button text="Remove Menu Item" styleClass="btn-danger" onAction="#removeMenuItem"/>
+            <Label fx:id="menuMsg" styleClass="msg-success"/>
+        </HBox>
+    </VBox>
+
+    <!-- Table -->
+    <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Restaurants" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="searchField" promptText="Search..." prefWidth="200"/>
+            <Button text="Search" styleClass="btn-secondary" onAction="#searchRestaurants"/>
+            <Button text="Sort A-Z" styleClass="btn-secondary" onAction="#sortRestaurants"/>
+            <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshRestaurants"/>
+        </HBox>
+        <TableView fx:id="restaurantsTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId"      text="ID"       prefWidth="100"/>
+                <TableColumn fx:id="colName"    text="Name"     prefWidth="180"/>
+                <TableColumn fx:id="colCuisine" text="Cuisine"  prefWidth="130"/>
+                <TableColumn fx:id="colMenu"    text="Menu Items" prefWidth="80"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>
