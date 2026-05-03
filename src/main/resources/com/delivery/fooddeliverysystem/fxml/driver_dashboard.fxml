@@ -6,7 +6,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.delivery.fooddeliverysystem.controller.DriverDashboardController"
             prefWidth="1000" prefHeight="660"
-            stylesheets="@../css/style.css">
+            stylesheets="@style.css">
 
     <left>
         <VBox styleClass="sidebar" spacing="2">
