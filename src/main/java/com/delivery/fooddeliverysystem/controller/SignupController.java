@@ -4,6 +4,7 @@ import com.delivery.fooddeliverysystem.exception.DeliverySystemException;
 import com.delivery.fooddeliverysystem.model.Customer;
 import com.delivery.fooddeliverysystem.model.DeliveryDriver;
 import com.delivery.fooddeliverysystem.model.UserRole;
+import com.delivery.fooddeliverysystem.util.ViewLoader;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,13 +81,12 @@ public class SignupController implements Initializable {
     @FXML
     private void goToLogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/delivery/fooddeliverysystem/fxml/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml("login.fxml"));
             Stage stage = (Stage) fieldUsername.getScene().getWindow();
             stage.setScene(new Scene(loader.load(), 420, 460));
             stage.setTitle("🍔 FoodDash — Login");
         } catch (IOException e) {
-            showError("Could not open login screen.");
+            showError("Could not open login screen: " + e.getMessage());
         }
     }
 

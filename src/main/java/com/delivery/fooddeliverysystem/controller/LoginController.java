@@ -2,6 +2,7 @@ package com.delivery.fooddeliverysystem.controller;
 
 import com.delivery.fooddeliverysystem.exception.DeliverySystemException;
 import com.delivery.fooddeliverysystem.model.UserAccount;
+import com.delivery.fooddeliverysystem.util.ViewLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,32 +44,30 @@ public class LoginController implements Initializable {
     @FXML
     private void goToSignup() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/delivery/fooddeliverysystem/fxml/signup.fxml"));
+            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml("signup.fxml"));
             Stage stage = (Stage) fieldUsername.getScene().getWindow();
             stage.setScene(new Scene(loader.load(), 520, 560));
             stage.setTitle("🍔 FoodDash — Create Account");
         } catch (IOException e) {
-            showError("Could not open signup screen.");
+            showError("Could not open signup screen: " + e.getMessage());
         }
     }
 
     private void openDashboard() {
         try {
-            String fxml = switch (SessionManager.get().getCurrentUser().getRole()) {
-                case CUSTOMER -> "/com/delivery/fooddeliverysystem/fxml/customer_dashboard.fxml";
-                case DRIVER   -> "/com/delivery/fooddeliverysystem/fxml/driver_dashboard.fxml";
-                default       -> "/com/delivery/fooddeliverysystem/fxml/dashboard.fxml";
+            String fxmlFile = switch (SessionManager.get().getCurrentUser().getRole()) {
+                case CUSTOMER -> "customer_dashboard.fxml";
+                case DRIVER   -> "driver_dashboard.fxml";
+                default       -> "dashboard.fxml";
             };
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml(fxmlFile));
             Stage stage = (Stage) fieldUsername.getScene().getWindow();
             Scene scene = new Scene(loader.load(), 1050, 680);
             stage.setScene(scene);
             stage.setTitle("🍔 FoodDash — Delivery System");
             stage.setMinWidth(900);
             stage.setMinHeight(600);
-        } catch (IOException e) {
-            // Unwrap the real cause — FXML load failures wrap the root exception
+        } catch (Exception e) {
             Throwable cause = e.getCause() != null ? e.getCause() : e;
             showError("Could not load dashboard: " + cause.getMessage());
             cause.printStackTrace();

@@ -1,6 +1,7 @@
 package com.delivery.fooddeliverysystem.controller;
 
 import com.delivery.fooddeliverysystem.model.Order;
+import com.delivery.fooddeliverysystem.util.ViewLoader;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,10 +35,10 @@ public class DashboardController implements Initializable {
     // Cache for lazily loaded sub-views
     private final Map<String, Node> viewCache = new HashMap<>();
 
-    private static final String ORDERS_FXML      = "/com/delivery/fooddeliverysystem/fxml/orders.fxml";
-    private static final String RESTAURANTS_FXML = "/com/delivery/fooddeliverysystem/fxml/restaurants.fxml";
-    private static final String CUSTOMERS_FXML   = "/com/delivery/fooddeliverysystem/fxml/customers.fxml";
-    private static final String DRIVERS_FXML     = "/com/delivery/fooddeliverysystem/fxml/drivers.fxml";
+    private static final String ORDERS_FXML      = "orders.fxml";
+    private static final String RESTAURANTS_FXML = "restaurants.fxml";
+    private static final String CUSTOMERS_FXML   = "customers.fxml";
+    private static final String DRIVERS_FXML     = "drivers.fxml";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,13 +99,13 @@ public class DashboardController implements Initializable {
         }
     }
 
-    private Node loadView(String fxmlPath) {
+    private Node loadView(String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml(fxmlFile));
             return loader.load();
-        } catch (IOException e) {
+        } catch (Exception e) {
             Throwable cause = e.getCause() != null ? e.getCause() : e;
-            System.err.println("Failed to load view [" + fxmlPath + "]: " + cause.getMessage());
+            System.err.println("Failed to load view [" + fxmlFile + "]: " + cause.getMessage());
             cause.printStackTrace();
             Label errorLabel = new Label("⚠ Failed to load view: " + cause.getMessage());
             errorLabel.getStyleClass().add("msg-error");
@@ -126,8 +127,7 @@ public class DashboardController implements Initializable {
         SessionManager.get().logout();
         viewCache.clear();
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/delivery/fooddeliverysystem/fxml/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml("login.fxml"));
             Stage stage = (Stage) headerTitle.getScene().getWindow();
             stage.setScene(new Scene(loader.load(), 420, 460));
             stage.setTitle("🍔 FoodDash — Login");

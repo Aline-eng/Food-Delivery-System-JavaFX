@@ -6,6 +6,7 @@ import com.delivery.fooddeliverysystem.model.MenuItem;
 import com.delivery.fooddeliverysystem.model.Order;
 import com.delivery.fooddeliverysystem.model.OrderStatus;
 import com.delivery.fooddeliverysystem.model.Restaurant;
+import com.delivery.fooddeliverysystem.util.ViewLoader;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -159,15 +160,14 @@ public class CustomerDashboardController implements Initializable {
     private void handleLogout() {
         session.logout();
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/delivery/fooddeliverysystem/fxml/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(ViewLoader.fxml("login.fxml"));
             Stage stage = (Stage) lblWelcome.getScene().getWindow();
             stage.setScene(new Scene(loader.load(), 420, 460));
             stage.setTitle("🍔 FoodDash — Login");
             stage.setMinWidth(400);
             stage.setMinHeight(400);
         } catch (IOException e) {
-            showError("Logout failed.");
+            showError("Logout failed: " + e.getMessage());
         }
     }
 
