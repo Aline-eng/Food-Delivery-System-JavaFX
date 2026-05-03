@@ -20,13 +20,13 @@
                 <TextField fx:id="fieldRestName" promptText="Restaurant name"/>
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Cuisine" styleClass="form-label"/>
-                <TextField fx:id="fieldCuisine" promptText="e.g. Italian"/>
+                <Label text="Cuisine Type" styleClass="form-label"/>
+                <ComboBox fx:id="cuisineCombo" maxWidth="Infinity" promptText="Select cuisine..."/>
             </VBox>
         </HBox>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Add Restaurant" styleClass="btn-primary" onAction="#addRestaurant"/>
-            <Button text="Remove Selected" styleClass="btn-danger" onAction="#removeRestaurant"/>
+            <Button text="Add Restaurant"   styleClass="btn-primary" onAction="#addRestaurant"/>
+            <Button text="Remove Selected"  styleClass="btn-danger"  onAction="#removeRestaurant"/>
             <Label fx:id="restMsg" styleClass="msg-success"/>
         </HBox>
     </VBox>
@@ -36,8 +36,8 @@
         <Label text="Manage Menu Items" styleClass="section-title"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Restaurant ID" styleClass="form-label"/>
-                <TextField fx:id="fieldMenuRestId" promptText="Restaurant ID"/>
+                <Label text="Restaurant" styleClass="form-label"/>
+                <ComboBox fx:id="menuRestCombo" maxWidth="Infinity" promptText="Select restaurant..."/>
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label text="Item ID" styleClass="form-label"/>
@@ -53,12 +53,12 @@
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label text="Category" styleClass="form-label"/>
-                <TextField fx:id="fieldItemCategory" promptText="e.g. Main"/>
+                <ComboBox fx:id="itemCategoryCombo" maxWidth="Infinity" promptText="Select category..."/>
             </VBox>
         </HBox>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Add Menu Item" styleClass="btn-primary" onAction="#addMenuItem"/>
-            <Button text="Remove Menu Item" styleClass="btn-danger" onAction="#removeMenuItem"/>
+            <Button text="Add Menu Item"    styleClass="btn-primary" onAction="#addMenuItem"/>
+            <Button text="Remove Menu Item" styleClass="btn-danger"  onAction="#removeMenuItem"/>
             <Label fx:id="menuMsg" styleClass="msg-success"/>
         </HBox>
     </VBox>
@@ -68,16 +68,16 @@
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Restaurants" styleClass="section-title" HBox.hgrow="ALWAYS"/>
             <TextField fx:id="searchField" promptText="Search..." prefWidth="200"/>
-            <Button text="Search" styleClass="btn-secondary" onAction="#searchRestaurants"/>
+            <Button text="Search"  styleClass="btn-secondary" onAction="#searchRestaurants"/>
             <Button text="Sort A-Z" styleClass="btn-secondary" onAction="#sortRestaurants"/>
             <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshRestaurants"/>
         </HBox>
         <TableView fx:id="restaurantsTable" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colId"      text="ID"       prefWidth="100"/>
-                <TableColumn fx:id="colName"    text="Name"     prefWidth="180"/>
-                <TableColumn fx:id="colCuisine" text="Cuisine"  prefWidth="130"/>
-                <TableColumn fx:id="colMenu"    text="Menu Items" prefWidth="80"/>
+                <TableColumn fx:id="colId"      text="ID"         prefWidth="100"/>
+                <TableColumn fx:id="colName"    text="Name"       prefWidth="180"/>
+                <TableColumn fx:id="colCuisine" text="Cuisine"    prefWidth="130"/>
+                <TableColumn fx:id="colMenu"    text="Menu Items" prefWidth="100"/>
             </columns>
         </TableView>
     </VBox>

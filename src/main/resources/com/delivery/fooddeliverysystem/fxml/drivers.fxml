@@ -25,12 +25,12 @@
             </VBox>
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label text="Vehicle Type" styleClass="form-label"/>
-                <TextField fx:id="fieldVehicle" promptText="e.g. Motorcycle"/>
+                <ComboBox fx:id="vehicleCombo" maxWidth="Infinity" promptText="Select vehicle..."/>
             </VBox>
         </HBox>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Add Driver" styleClass="btn-primary" onAction="#addDriver"/>
-            <Button text="Remove Selected" styleClass="btn-danger" onAction="#removeDriver"/>
+            <Button text="Add Driver"      styleClass="btn-primary" onAction="#addDriver"/>
+            <Button text="Remove Selected" styleClass="btn-danger"  onAction="#removeDriver"/>
             <Label fx:id="driverMsg" styleClass="msg-success"/>
         </HBox>
     </VBox>
@@ -40,17 +40,17 @@
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Drivers" styleClass="section-title" HBox.hgrow="ALWAYS"/>
             <TextField fx:id="searchField" promptText="Search..." prefWidth="200"/>
-            <Button text="Search" styleClass="btn-secondary" onAction="#searchDrivers"/>
+            <Button text="Search"  styleClass="btn-secondary" onAction="#searchDrivers"/>
             <Button text="Sort A-Z" styleClass="btn-secondary" onAction="#sortDrivers"/>
             <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshDrivers"/>
         </HBox>
         <TableView fx:id="driversTable" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colId"        text="ID"          prefWidth="100"/>
-                <TableColumn fx:id="colName"      text="Name"        prefWidth="160"/>
-                <TableColumn fx:id="colPhone"     text="Phone"       prefWidth="130"/>
-                <TableColumn fx:id="colVehicle"   text="Vehicle"     prefWidth="120"/>
-                <TableColumn fx:id="colAvailable" text="Available"   prefWidth="90"/>
+                <TableColumn fx:id="colId"        text="ID"        prefWidth="100"/>
+                <TableColumn fx:id="colName"      text="Name"      prefWidth="160"/>
+                <TableColumn fx:id="colPhone"     text="Phone"     prefWidth="130"/>
+                <TableColumn fx:id="colVehicle"   text="Vehicle"   prefWidth="120"/>
+                <TableColumn fx:id="colAvailable" text="Available" prefWidth="90"/>
             </columns>
         </TableView>
     </VBox>

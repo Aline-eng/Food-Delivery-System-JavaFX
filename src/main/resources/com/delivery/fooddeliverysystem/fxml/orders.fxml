@@ -7,53 +7,62 @@
       fx:controller="com.delivery.fooddeliverysystem.controller.OrderController"
       spacing="15" stylesheets="@../css/style.css">
 
-    <!-- Form Panel -->
+    <!-- Place Order Form -->
     <VBox styleClass="content-panel" spacing="12">
         <Label text="Place New Order" styleClass="section-title"/>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Order ID" styleClass="form-label"/>
-                <TextField fx:id="fieldOrderId" promptText="e.g. ORD-001"/>
+        <HBox spacing="12" alignment="TOP_LEFT">
+            <!-- Left: customer + restaurant -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <VBox spacing="4">
+                    <Label text="Customer" styleClass="form-label"/>
+                    <ComboBox fx:id="customerCombo" maxWidth="Infinity" promptText="Select customer..."/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Restaurant" styleClass="form-label"/>
+                    <ComboBox fx:id="restaurantCombo" maxWidth="Infinity" promptText="Select restaurant..."/>
+                </VBox>
             </VBox>
+            <!-- Right: menu items -->
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Customer ID" styleClass="form-label"/>
-                <TextField fx:id="fieldCustomerId" promptText="e.g. C-001"/>
+                <Label text="Menu Items  (hold Ctrl to select multiple)" styleClass="form-label"/>
+                <ListView fx:id="menuListView" prefHeight="120"/>
             </VBox>
-            <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Restaurant ID" styleClass="form-label"/>
-                <TextField fx:id="fieldRestaurantId" promptText="e.g. R-001"/>
-            </VBox>
-            <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Menu Item IDs (comma-separated)" styleClass="form-label"/>
-                <TextField fx:id="fieldItemIds" promptText="e.g. M1,M2"/>
+            <!-- Total + place button -->
+            <VBox spacing="8" alignment="TOP_RIGHT" minWidth="150">
+                <Label text="Order Total" styleClass="form-label"/>
+                <Label fx:id="lblOrderTotal" text="$0.00"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e65c00;"/>
+                <Button text="Place Order" styleClass="btn-primary" maxWidth="Infinity"
+                        onAction="#placeOrder" style="-fx-padding: 10 0;"/>
             </VBox>
         </HBox>
+
+        <!-- Action row -->
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Place Order" styleClass="btn-primary" onAction="#placeOrder"/>
             <Button text="Assign Driver" styleClass="btn-success" onAction="#assignDriver"/>
-            <Button text="Cancel Order" styleClass="btn-danger" onAction="#cancelOrder"/>
-            <ComboBox fx:id="statusCombo" promptText="Update Status"/>
+            <Button text="Cancel Order"  styleClass="btn-danger"  onAction="#cancelOrder"/>
+            <ComboBox fx:id="statusCombo" promptText="Change status..." prefWidth="160"/>
             <Button text="Update Status" styleClass="btn-secondary" onAction="#updateStatus"/>
-            <Label fx:id="orderMsg" styleClass="msg-success"/>
+            <Label fx:id="orderMsg" styleClass="msg-success" HBox.hgrow="ALWAYS"/>
         </HBox>
     </VBox>
 
-    <!-- Search + Table -->
+    <!-- Table -->
     <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="Orders" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+            <Label text="All Orders" styleClass="section-title" HBox.hgrow="ALWAYS"/>
             <TextField fx:id="searchField" promptText="Search orders..." prefWidth="200"/>
-            <Button text="Search" styleClass="btn-secondary" onAction="#searchOrders"/>
+            <Button text="Search"      styleClass="btn-secondary" onAction="#searchOrders"/>
             <Button text="Sort by Time" styleClass="btn-secondary" onAction="#sortOrders"/>
-            <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshOrders"/>
+            <Button text="Refresh"     styleClass="btn-secondary" onAction="#refreshOrders"/>
         </HBox>
         <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colId"         text="Order ID"   prefWidth="110"/>
+                <TableColumn fx:id="colId"         text="Order ID"   prefWidth="120"/>
                 <TableColumn fx:id="colCustomer"   text="Customer"   prefWidth="130"/>
                 <TableColumn fx:id="colRestaurant" text="Restaurant" prefWidth="130"/>
-                <TableColumn fx:id="colItems"      text="Items"      prefWidth="160"/>
-                <TableColumn fx:id="colTotal"      text="Total ($)"  prefWidth="80"/>
+                <TableColumn fx:id="colItems"      text="Items"      prefWidth="170"/>
+                <TableColumn fx:id="colTotal"      text="Total"      prefWidth="80"/>
                 <TableColumn fx:id="colDriver"     text="Driver"     prefWidth="110"/>
                 <TableColumn fx:id="colStatus"     text="Status"     prefWidth="120"/>
                 <TableColumn fx:id="colTime"       text="Time"       prefWidth="130"/>
