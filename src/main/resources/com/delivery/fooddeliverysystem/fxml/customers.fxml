@@ -7,7 +7,6 @@
       fx:controller="com.delivery.fooddeliverysystem.controller.CustomerController"
       spacing="15" stylesheets="@style.css">
 
-    <!-- Form -->
     <VBox styleClass="content-panel" spacing="12">
         <Label text="Manage Customers" styleClass="section-title"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
@@ -29,18 +28,17 @@
             </VBox>
         </HBox>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Add Customer" styleClass="btn-primary" onAction="#addCustomer"/>
-            <Button text="Remove Selected" styleClass="btn-danger" onAction="#removeCustomer"/>
+            <Button text="Add Customer"    styleClass="btn-primary" onAction="#addCustomer"/>
+            <Button text="Remove Selected" styleClass="btn-danger"  onAction="#removeCustomer"/>
             <Label fx:id="customerMsg" styleClass="msg-success"/>
         </HBox>
     </VBox>
 
-    <!-- Table -->
     <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Customers" styleClass="section-title" HBox.hgrow="ALWAYS"/>
             <TextField fx:id="searchField" promptText="Search..." prefWidth="200"/>
-            <Button text="Search" styleClass="btn-secondary" onAction="#searchCustomers"/>
+            <Button text="Search"  styleClass="btn-secondary" onAction="#searchCustomers"/>
             <Button text="Sort A-Z" styleClass="btn-secondary" onAction="#sortCustomers"/>
             <Button text="Refresh" styleClass="btn-secondary" onAction="#refreshCustomers"/>
         </HBox>

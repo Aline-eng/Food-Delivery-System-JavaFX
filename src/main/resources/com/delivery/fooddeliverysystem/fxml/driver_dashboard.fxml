@@ -10,11 +10,11 @@
 
     <left>
         <VBox styleClass="sidebar" spacing="2">
-            <Label text="🍔 FoodDash" styleClass="sidebar-title"/>
+            <Label text="FoodDash" styleClass="sidebar-title"/>
             <Label text="Driver Portal" styleClass="sidebar-subtitle"/>
             <Separator/>
             <VBox VBox.vgrow="ALWAYS"/>
-            <Button text="🚪  Logout" styleClass="nav-button" onAction="#handleLogout"
+            <Button text="Logout" styleClass="nav-button" onAction="#handleLogout"
                     style="-fx-text-fill: #ff6b6b;"/>
             <padding><Insets bottom="10"/></padding>
         </VBox>
@@ -30,7 +30,6 @@
             <VBox spacing="20">
                 <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
-                <!-- Status update panel -->
                 <VBox styleClass="content-panel" spacing="12">
                     <Label text="Update Delivery Status" styleClass="section-title"/>
                     <HBox spacing="10" alignment="CENTER_LEFT">
@@ -50,9 +49,8 @@
                     <Label fx:id="driverMsg" text="" wrapText="true"/>
                 </VBox>
 
-                <!-- Assigned orders table -->
                 <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
-                    <Label text="🚗 My Assigned Deliveries" styleClass="section-title"/>
+                    <Label text="My Assigned Deliveries" styleClass="section-title"/>
                     <TableView fx:id="assignedOrdersTable" VBox.vgrow="ALWAYS" prefHeight="380">
                         <columns>
                             <TableColumn fx:id="colId"         text="Order ID"   prefWidth="130"/>

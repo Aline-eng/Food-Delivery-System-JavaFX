@@ -7,7 +7,6 @@
       fx:controller="com.delivery.fooddeliverysystem.controller.DriverController"
       spacing="15" stylesheets="@style.css">
 
-    <!-- Form -->
     <VBox styleClass="content-panel" spacing="12">
         <Label text="Manage Delivery Drivers" styleClass="section-title"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
@@ -35,7 +34,6 @@
         </HBox>
     </VBox>
 
-    <!-- Table -->
     <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Drivers" styleClass="section-title" HBox.hgrow="ALWAYS"/>

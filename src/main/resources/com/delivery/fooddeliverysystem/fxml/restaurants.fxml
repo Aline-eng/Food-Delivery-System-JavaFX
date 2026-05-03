@@ -7,7 +7,6 @@
       fx:controller="com.delivery.fooddeliverysystem.controller.RestaurantController"
       spacing="15" stylesheets="@style.css">
 
-    <!-- Restaurant Form -->
     <VBox styleClass="content-panel" spacing="12">
         <Label text="Manage Restaurants" styleClass="section-title"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
@@ -25,13 +24,12 @@
             </VBox>
         </HBox>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Add Restaurant"   styleClass="btn-primary" onAction="#addRestaurant"/>
-            <Button text="Remove Selected"  styleClass="btn-danger"  onAction="#removeRestaurant"/>
+            <Button text="Add Restaurant"  styleClass="btn-primary" onAction="#addRestaurant"/>
+            <Button text="Remove Selected" styleClass="btn-danger"  onAction="#removeRestaurant"/>
             <Label fx:id="restMsg" styleClass="msg-success"/>
         </HBox>
     </VBox>
 
-    <!-- Menu Item Form -->
     <VBox styleClass="content-panel" spacing="12">
         <Label text="Manage Menu Items" styleClass="section-title"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
@@ -63,7 +61,6 @@
         </HBox>
     </VBox>
 
-    <!-- Table -->
     <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Restaurants" styleClass="section-title" HBox.hgrow="ALWAYS"/>

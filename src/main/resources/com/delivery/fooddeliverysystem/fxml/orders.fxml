@@ -7,11 +7,9 @@
       fx:controller="com.delivery.fooddeliverysystem.controller.OrderController"
       spacing="15" stylesheets="@style.css">
 
-    <!-- Place Order Form -->
     <VBox styleClass="content-panel" spacing="12">
         <Label text="Place New Order" styleClass="section-title"/>
         <HBox spacing="12" alignment="TOP_LEFT">
-            <!-- Left: customer + restaurant -->
             <VBox spacing="10" HBox.hgrow="ALWAYS">
                 <VBox spacing="4">
                     <Label text="Customer" styleClass="form-label"/>
@@ -22,12 +20,10 @@
                     <ComboBox fx:id="restaurantCombo" maxWidth="Infinity" promptText="Select restaurant..."/>
                 </VBox>
             </VBox>
-            <!-- Right: menu items -->
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label text="Menu Items  (hold Ctrl to select multiple)" styleClass="form-label"/>
+                <Label text="Menu Items (hold Ctrl to select multiple)" styleClass="form-label"/>
                 <ListView fx:id="menuListView" prefHeight="120"/>
             </VBox>
-            <!-- Total + place button -->
             <VBox spacing="8" alignment="TOP_RIGHT" minWidth="150">
                 <Label text="Order Total" styleClass="form-label"/>
                 <Label fx:id="lblOrderTotal" text="$0.00"
@@ -37,7 +33,6 @@
             </VBox>
         </HBox>
 
-        <!-- Action row -->
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Button text="Assign Driver" styleClass="btn-success" onAction="#assignDriver"/>
             <Button text="Cancel Order"  styleClass="btn-danger"  onAction="#cancelOrder"/>
@@ -47,14 +42,13 @@
         </HBox>
     </VBox>
 
-    <!-- Table -->
     <VBox styleClass="content-panel" spacing="10" VBox.vgrow="ALWAYS">
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="All Orders" styleClass="section-title" HBox.hgrow="ALWAYS"/>
             <TextField fx:id="searchField" promptText="Search orders..." prefWidth="200"/>
-            <Button text="Search"      styleClass="btn-secondary" onAction="#searchOrders"/>
+            <Button text="Search"       styleClass="btn-secondary" onAction="#searchOrders"/>
             <Button text="Sort by Time" styleClass="btn-secondary" onAction="#sortOrders"/>
-            <Button text="Refresh"     styleClass="btn-secondary" onAction="#refreshOrders"/>
+            <Button text="Refresh"      styleClass="btn-secondary" onAction="#refreshOrders"/>
         </HBox>
         <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
             <columns>

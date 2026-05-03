@@ -8,38 +8,33 @@
             prefWidth="1050" prefHeight="680"
             stylesheets="@style.css">
 
-    <!-- SIDEBAR -->
     <left>
         <VBox styleClass="sidebar" spacing="2">
-            <Label text="🍔 FoodDash" styleClass="sidebar-title"/>
+            <Label text="FoodDash" styleClass="sidebar-title"/>
             <Label text="Admin Panel" styleClass="sidebar-subtitle"/>
             <Separator/>
-            <Button fx:id="btnNavDashboard"   text="📊  Dashboard"   styleClass="nav-button,nav-button-active" onAction="#showDashboard"/>
-            <Button fx:id="btnNavOrders"      text="📦  Orders"      styleClass="nav-button" onAction="#showOrders"/>
-            <Button fx:id="btnNavRestaurants" text="🍽  Restaurants"  styleClass="nav-button" onAction="#showRestaurants"/>
-            <Button fx:id="btnNavCustomers"   text="👤  Customers"   styleClass="nav-button" onAction="#showCustomers"/>
-            <Button fx:id="btnNavDrivers"     text="🚗  Drivers"     styleClass="nav-button" onAction="#showDrivers"/>
+            <Button fx:id="btnNavDashboard"   text="Dashboard"   styleClass="nav-button,nav-button-active" onAction="#showDashboard"/>
+            <Button fx:id="btnNavOrders"      text="Orders"      styleClass="nav-button" onAction="#showOrders"/>
+            <Button fx:id="btnNavRestaurants" text="Restaurants" styleClass="nav-button" onAction="#showRestaurants"/>
+            <Button fx:id="btnNavCustomers"   text="Customers"   styleClass="nav-button" onAction="#showCustomers"/>
+            <Button fx:id="btnNavDrivers"     text="Drivers"     styleClass="nav-button" onAction="#showDrivers"/>
             <VBox VBox.vgrow="ALWAYS"/>
             <Separator/>
-            <Button text="🚪  Logout" styleClass="nav-button" onAction="#handleLogout"
+            <Button text="Logout" styleClass="nav-button" onAction="#handleLogout"
                     style="-fx-text-fill: #ff6b6b;"/>
         </VBox>
     </left>
 
-    <!-- MAIN CONTENT -->
     <center>
         <VBox spacing="0">
-            <!-- Header -->
             <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="10">
                 <Label fx:id="headerTitle" text="Dashboard" styleClass="header-title" HBox.hgrow="ALWAYS"/>
                 <Label fx:id="lblAdminUser" text="" style="-fx-text-fill: #888888; -fx-font-size: 12px;"/>
             </HBox>
 
-            <!-- Single StackPane — DashboardController swaps content here -->
             <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
                 <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
-                <!-- Dashboard home pane (always present, others loaded lazily) -->
                 <VBox fx:id="dashboardPane" spacing="20">
                     <HBox spacing="15">
                         <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
