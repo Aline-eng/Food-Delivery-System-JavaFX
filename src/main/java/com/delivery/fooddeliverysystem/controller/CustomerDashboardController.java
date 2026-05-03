@@ -154,6 +154,7 @@ public class CustomerDashboardController implements Initializable {
                 .filter(o -> o.getCustomer().getId().equals(customerId))
                 .collect(Collectors.toList());
         myOrdersTable.getItems().setAll(myOrders);
+        myOrdersTable.refresh();
     }
 
     @FXML

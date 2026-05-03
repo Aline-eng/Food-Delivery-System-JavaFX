@@ -180,6 +180,7 @@ public class OrderController implements Initializable {
 
     @FXML public void refreshOrders() {
         ordersTable.getItems().setAll(ctx.orderManager.getAll());
+        ordersTable.refresh();
         // Refresh combos in case new customers/restaurants were added
         customerCombo.setItems(FXCollections.observableArrayList(ctx.customerManager.getAll()));
         restaurantCombo.setItems(FXCollections.observableArrayList(ctx.restaurantManager.getAll()));
