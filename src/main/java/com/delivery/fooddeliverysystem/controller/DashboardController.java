@@ -1,47 +1,58 @@
 package com.delivery.fooddeliverysystem.controller;
 
 import com.delivery.fooddeliverysystem.model.Order;
-import com.delivery.fooddeliverysystem.model.OrderStatus;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
     @FXML private Label headerTitle, lblAdminUser;
     @FXML private Label statOrders, statRestaurants, statCustomers, statDrivers;
-    @FXML private VBox dashboardPane, ordersPane, restaurantsPane, customersPane, driversPane;
+    @FXML private StackPane contentArea;
+    @FXML private VBox dashboardPane;
     @FXML private Button btnNavDashboard, btnNavOrders, btnNavRestaurants, btnNavCustomers, btnNavDrivers;
-
     @FXML private TableView<Order> recentOrdersTable;
     @FXML private TableColumn<Order, String> colROId, colROCustomer, colRORestaurant, colROStatus, colROTotal, colROTime;
 
     private final AppContext ctx = AppContext.get();
 
+    // Cache for lazily loaded sub-views
+    private final Map<String, Node> viewCache = new HashMap<>();
+
+    private static final String ORDERS_FXML      = "/com/delivery/fooddeliverysystem/fxml/orders.fxml";
+    private static final String RESTAURANTS_FXML = "/com/delivery/fooddeliverysystem/fxml/restaurants.fxml";
+    private static final String CUSTOMERS_FXML   = "/com/delivery/fooddeliverysystem/fxml/customers.fxml";
+    private static final String DRIVERS_FXML     = "/com/delivery/fooddeliverysystem/fxml/drivers.fxml";
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupRecentOrdersTable();
         refreshStats();
-        if (lblAdminUser != null)
-            lblAdminUser.setText("Admin: " + SessionManager.get().getCurrentUser().getUsername());
+        lblAdminUser.setText("Admin: " + SessionManager.get().getCurrentUser().getUsername());
     }
 
     private void setupRecentOrdersTable() {
-        colROId.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(d.getValue().getOrderId()));
-        colROCustomer.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(d.getValue().getCustomer().getName()));
-        colRORestaurant.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(d.getValue().getRestaurant().getName()));
-        colROStatus.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(d.getValue().getStatus().name()));
-        colROTotal.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(String.format("%.2f", d.getValue().getTotalPrice())));
-        colROTime.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(d.getValue().getFormattedTime()));
+        colROId.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getOrderId()));
+        colROCustomer.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getCustomer().getName()));
+        colRORestaurant.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getRestaurant().getName()));
+        colROStatus.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getStatus().name()));
+        colROTotal.setCellValueFactory(d -> new SimpleStringProperty(String.format("%.2f", d.getValue().getTotalPrice())));
+        colROTime.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getFormattedTime()));
     }
 
     public void refreshStats() {
@@ -54,34 +65,66 @@ public class DashboardController implements Initializable {
         recentOrdersTable.getItems().setAll(orders.subList(0, Math.min(10, orders.size())));
     }
 
-    private void showPane(VBox pane, String title, Button activeBtn) {
-        dashboardPane.setVisible(false); dashboardPane.setManaged(false);
-        ordersPane.setVisible(false);    ordersPane.setManaged(false);
-        restaurantsPane.setVisible(false); restaurantsPane.setManaged(false);
-        customersPane.setVisible(false); customersPane.setManaged(false);
-        driversPane.setVisible(false);   driversPane.setManaged(false);
+    // ── Navigation ──────────────────────────────────────────────────────────
 
-        pane.setVisible(true); pane.setManaged(true);
+    @FXML private void showDashboard() {
+        setActiveButton(btnNavDashboard);
+        headerTitle.setText("Dashboard");
+        // Show the inline dashboard pane, hide any lazy-loaded view
+        contentArea.getChildren().forEach(n -> n.setVisible(false));
+        dashboardPane.setVisible(true);
+        refreshStats();
+    }
+
+    @FXML private void showOrders()      { navigateTo(ORDERS_FXML,      "Orders",      btnNavOrders); }
+    @FXML private void showRestaurants() { navigateTo(RESTAURANTS_FXML, "Restaurants", btnNavRestaurants); }
+    @FXML private void showCustomers()   { navigateTo(CUSTOMERS_FXML,   "Customers",   btnNavCustomers); }
+    @FXML private void showDrivers()     { navigateTo(DRIVERS_FXML,     "Drivers",     btnNavDrivers); }
+
+    private void navigateTo(String fxmlPath, String title, Button activeBtn) {
+        setActiveButton(activeBtn);
         headerTitle.setText(title);
 
+        // Hide all current children
+        contentArea.getChildren().forEach(n -> n.setVisible(false));
+
+        // Load once, cache, reuse
+        Node view = viewCache.computeIfAbsent(fxmlPath, this::loadView);
+        if (view != null) {
+            if (!contentArea.getChildren().contains(view)) {
+                contentArea.getChildren().add(view);
+            }
+            view.setVisible(true);
+        }
+    }
+
+    private Node loadView(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            return loader.load();
+        } catch (IOException e) {
+            Throwable cause = e.getCause() != null ? e.getCause() : e;
+            System.err.println("Failed to load view [" + fxmlPath + "]: " + cause.getMessage());
+            cause.printStackTrace();
+            Label errorLabel = new Label("⚠ Failed to load view: " + cause.getMessage());
+            errorLabel.getStyleClass().add("msg-error");
+            return errorLabel;
+        }
+    }
+
+    private void setActiveButton(Button active) {
         for (Button b : new Button[]{btnNavDashboard, btnNavOrders, btnNavRestaurants, btnNavCustomers, btnNavDrivers}) {
             b.getStyleClass().remove("nav-button-active");
         }
-        activeBtn.getStyleClass().add("nav-button-active");
+        active.getStyleClass().add("nav-button-active");
     }
 
-    @FXML private void showDashboard() {
-        showPane(dashboardPane, "Dashboard", btnNavDashboard);
-        refreshStats();
-    }
-    @FXML private void showOrders()      { showPane(ordersPane,      "Orders",      btnNavOrders); }
-    @FXML private void showRestaurants() { showPane(restaurantsPane, "Restaurants", btnNavRestaurants); }
-    @FXML private void showCustomers()   { showPane(customersPane,   "Customers",   btnNavCustomers); }
-    @FXML private void showDrivers()     { showPane(driversPane,     "Drivers",     btnNavDrivers); }
+    // ── Logout ───────────────────────────────────────────────────────────────
 
     @FXML
     private void handleLogout() {
         SessionManager.get().logout();
+        viewCache.clear();
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/delivery/fooddeliverysystem/fxml/login.fxml"));

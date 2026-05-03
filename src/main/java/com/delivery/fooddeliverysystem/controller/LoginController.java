@@ -68,7 +68,10 @@ public class LoginController implements Initializable {
             stage.setMinWidth(900);
             stage.setMinHeight(600);
         } catch (IOException e) {
-            showError("Could not load dashboard: " + e.getMessage());
+            // Unwrap the real cause — FXML load failures wrap the root exception
+            Throwable cause = e.getCause() != null ? e.getCause() : e;
+            showError("Could not load dashboard: " + cause.getMessage());
+            cause.printStackTrace();
         }
     }
 

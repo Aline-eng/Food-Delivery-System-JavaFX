@@ -5,20 +5,20 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.delivery.fooddeliverysystem.controller.DashboardController"
-            prefWidth="1000" prefHeight="650"
+            prefWidth="1050" prefHeight="680"
             stylesheets="@../css/style.css">
 
     <!-- SIDEBAR -->
     <left>
         <VBox styleClass="sidebar" spacing="2">
             <Label text="🍔 FoodDash" styleClass="sidebar-title"/>
-            <Label text="Delivery System" styleClass="sidebar-subtitle"/>
+            <Label text="Admin Panel" styleClass="sidebar-subtitle"/>
             <Separator/>
-            <Button fx:id="btnNavDashboard" text="📊  Dashboard"  styleClass="nav-button,nav-button-active" onAction="#showDashboard"/>
-            <Button fx:id="btnNavOrders"    text="📦  Orders"     styleClass="nav-button" onAction="#showOrders"/>
-            <Button fx:id="btnNavRestaurants" text="🍽  Restaurants" styleClass="nav-button" onAction="#showRestaurants"/>
-            <Button fx:id="btnNavCustomers" text="👤  Customers"  styleClass="nav-button" onAction="#showCustomers"/>
-            <Button fx:id="btnNavDrivers"   text="🚗  Drivers"    styleClass="nav-button" onAction="#showDrivers"/>
+            <Button fx:id="btnNavDashboard"   text="📊  Dashboard"   styleClass="nav-button,nav-button-active" onAction="#showDashboard"/>
+            <Button fx:id="btnNavOrders"      text="📦  Orders"      styleClass="nav-button" onAction="#showOrders"/>
+            <Button fx:id="btnNavRestaurants" text="🍽  Restaurants"  styleClass="nav-button" onAction="#showRestaurants"/>
+            <Button fx:id="btnNavCustomers"   text="👤  Customers"   styleClass="nav-button" onAction="#showCustomers"/>
+            <Button fx:id="btnNavDrivers"     text="🚗  Drivers"     styleClass="nav-button" onAction="#showDrivers"/>
             <VBox VBox.vgrow="ALWAYS"/>
             <Separator/>
             <Button text="🚪  Logout" styleClass="nav-button" onAction="#handleLogout"
@@ -35,11 +35,11 @@
                 <Label fx:id="lblAdminUser" text="" style="-fx-text-fill: #888888; -fx-font-size: 12px;"/>
             </HBox>
 
-            <!-- Dynamic content area -->
+            <!-- Single StackPane — DashboardController swaps content here -->
             <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
                 <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
-                <!-- Dashboard pane -->
+                <!-- Dashboard home pane (always present, others loaded lazily) -->
                 <VBox fx:id="dashboardPane" spacing="20">
                     <HBox spacing="15">
                         <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
@@ -72,26 +72,6 @@
                             </columns>
                         </TableView>
                     </VBox>
-                </VBox>
-
-                <!-- Orders pane -->
-                <VBox fx:id="ordersPane" spacing="15" visible="false" managed="false">
-                    <fx:include fx:id="ordersInclude" source="orders.fxml"/>
-                </VBox>
-
-                <!-- Restaurants pane -->
-                <VBox fx:id="restaurantsPane" spacing="15" visible="false" managed="false">
-                    <fx:include fx:id="restaurantsInclude" source="restaurants.fxml"/>
-                </VBox>
-
-                <!-- Customers pane -->
-                <VBox fx:id="customersPane" spacing="15" visible="false" managed="false">
-                    <fx:include fx:id="customersInclude" source="customers.fxml"/>
-                </VBox>
-
-                <!-- Drivers pane -->
-                <VBox fx:id="driversPane" spacing="15" visible="false" managed="false">
-                    <fx:include fx:id="driversInclude" source="drivers.fxml"/>
                 </VBox>
 
             </StackPane>
